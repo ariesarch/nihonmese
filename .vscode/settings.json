@@ -1,0 +1,6 @@
+{
+  "vetur.enabled": false,
+  "vetur.validation.template": false,
+  "vetur.validation.script": false,
+  "vetur.format.defaultFormatter.ts": "none",
+}

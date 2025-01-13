@@ -1,0 +1,54 @@
+[
+    { "japanese": "わたし は チヨ です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし は きょうし です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし は ミャンマー じん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし は さんじゅさい です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし は エイ じゃ ありまさん(でわ ありまさん)", "burmese": "A" , "english":"A", "form": "Casual"},
+
+    { "japanese": "あなた は ソーさん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた は きょうし ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた は ミャンマー じん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた は さんじゅうさい ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた は なんさい ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた は あいくつ ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    
+    { "japanese": "わたし は ABC の しゃいん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+
+    { "japanese": "わたし も チヨ です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし も きょうし です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし も ミャンマー じん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "わたし は さんじゅうさい です。", "burmese": "A" , "english":"A", "form": "Casual"},
+
+    { "japanese": "あなた も ソーさん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた も きょうし ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた も ミャンマー じん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "あなた も さんじゅうさい ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    
+    { "japanese": "(これ/それ/あれ) わ ほん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(これ/それ/あれ) わ ほん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "はい、ほん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "いいえ、ほん じゃありまさん。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(これ/それ/あれ) わ ほん ですか。シーヂー ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "ほん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    
+    { "japanese": "(これ/それ/あれ) にほんご の ほん です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(これ/それ/あれ) なん の ほん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    
+    { "japanese": "(これ/それ/あれ) わたし の ほん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(これ/それ/あれ) だれ の ほん ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+
+    { "japanese": "(これ/それ/あれ) わたし の ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(これ/それ/あれ) だれ の ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+
+    { "japanese": "(これ/それ/あれ) は (PlaceName) です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(これ/それ/あれ) は (PlaceName) ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "はい、(PlaceName) です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "はい、（これ/それ/あれ） です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "いいえ、(PlaceName) じゃありまさん。", "burmese": "A" , "english":"A", "form": "Casual"},
+    
+    { "japanese": "(PlaceName,Things) は (これ/それ/あれ) です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(PlaceName,Things) は どこ ですか。", "burmese": "A" , "english":"A", "form": "Casual"},
+    
+    { "japanese": "(くに/かいしゃ/だいかく) は (PlaceName) です。", "burmese": "A" , "english":"A", "form": "Casual"},
+    { "japanese": "(くに/かいしゃ/だいかく) は (どちら) ですか。", "burmese": "A" , "english":"A", "form": "Casual"}
+]
