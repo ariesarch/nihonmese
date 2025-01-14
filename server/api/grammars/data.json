@@ -1,0 +1,46 @@
+[
+    {"topic": "Describing People", "pattern": "Noun-は-Noun です。", "describe": "Name,Job,Nationality,Age", "detail": "pattern-1"},
+    {"topic": "Describing People", "pattern": "Noun-は-Noun じゃありまさん", "describe": "Name,Job,Nationality,Age", "detail": "pattern-2"},
+    {"topic": "Asking..", "pattern": "Noun-は-Noun ですか。", "describe": "Name,Job,Nationality,Age", "detail": "pattern-3"},
+
+    {"topic": "Describing People", "pattern": "Noun1-の-Noun2 です。", "describe": "Noun1->Job,Noun2->Name", "detail": "pattern-4"},
+    {"topic": "*** To confirm***Asking..", "pattern": "Noun-は-Noun　(だれ,Name, Noun-の-Noun）　ですか。", "describe": "Name", "detail": "pattern-5"},
+    {"topic": "Asking..", "pattern": "Noun-は-だれ(Name) ですか。", "describe": "Name", "detail": "pattern-1"},
+    {"topic": "Describing People", "pattern": "Noun-も-Noun です。", "describe": "Name,Job,Nationality,Age", "detail": "pattern-1"},
+    {"topic": "Asking..", "pattern": "Noun-も-Noun　ですか。", "describe": "Name,Job,Nationality,Age", "detail": "pattern-1"},
+
+    {"topic": "Asking..", "pattern": "Noun-は-（なんさい、あいくつ） ですか。", "describe": "Age", "detail": "pattern-1"},
+    {"topic": "Describing　Things..", "pattern": "(これ、それ、あれ)-は-Noun　です。", "describe": "Things", "detail": "pattern-1"},
+    {"topic": "Describing　Things..", "pattern": "(これ、それ、あれ)-は-Noun　じゃありまさん.", "describe": "Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Noun　ですか。", "describe": "Things", "detail": "pattern-1"},
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-なん　ですか。", "describe": "Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Noun1　ですか。Noun2　ですか", "describe": "Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Categoryーの-Noun です。", "describe": "Things", "detail": "pattern-1"},
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Categoryーの-Noun ですか。", "describe": "Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Personーの-Noun です。", "describe": "Things", "detail": "pattern-1"},
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Personーの-Noun ですか。", "describe": "Things", "detail": "pattern-1"},
+
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Personーの です。", "describe": "Things", "detail": "pattern-1"},
+    {"topic": "Asking　Things..", "pattern": "(これ、それ、あれ)-は-Personーの ですか。", "describe": "Things", "detail": "pattern-1"},
+    {"topic": "Asking　Places..", "pattern": "(これ、それ、あれ)-は-Location です。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    {"topic": "Asking　Places..", "pattern": "(これ、それ、あれ)-は-Location ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Location..", "pattern": "Noun-は-Location です。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    {"topic": "Asking　Location..", "pattern": "Noun-は-どこ ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Location..", "pattern": "Noun-は-(こちら、そちら、あちら) です。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    {"topic": "Asking　Location..", "pattern": "Noun-は-どちら ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+
+    {"topic": "Asking　Location..", "pattern": "(くに、かいしゃ、だいがく)-は-(こちら、そちら、、あちら) ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    {"topic": "Asking　Location..", "pattern": "(くに、かいしゃ、だいがく)-は-どちら ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+
+    {"topic": "Asking　Places..", "pattern": "(これ、それ、あれ)-は-Noun1-の-Noun2 です。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    {"topic": "Asking　Places..", "pattern": "(これ、それ、あれ)-は-Noun1-の-Noun2 ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    
+    {"topic": "Asking　Places..", "pattern": "(このNoun、そのNoun、あのNoun)-は-Price です。", "describe": "PlaceName,Things", "detail": "pattern-1"},
+    {"topic": "Asking　Places..", "pattern": "(このNoun、そのNoun、あのNoun)-は-いくら ですか。", "describe": "PlaceName,Things", "detail": "pattern-1"}
+]

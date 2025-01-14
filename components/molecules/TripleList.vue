@@ -15,6 +15,10 @@ defineProps({
     type: String,
     default: 'name',
   },
+  valueKey3: {
+    type: String,
+    default: 'name',
+  },
 });
 </script>
 
@@ -26,6 +30,7 @@ defineProps({
         <ListItem :item="item" :valueKey="valueKey1" class="text-red-500"/>
         <!-- <div class="block">=></div> -->
         <ListItem :item="item" :valueKey="valueKey2"/>
+        <!-- <ListItem :item="item" :valueKey="valueKey3"/> -->
       </div>
     </li>
   </ul>

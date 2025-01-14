@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 
 // Fetch vocabularies.json from the server
 const { data:vocabularies, error } = await useFetch('/api/vocabularies');
-// console.log(vocabularies)
 // Create search filters for both Japanese and Burmese
 const japaneseSearch = ref('');
 const burmeseSearch = ref('');
@@ -13,13 +12,10 @@ const filteredVocabularies = computed(() => {
   if (!vocabularies) return [];
   const japaneseKeyword = japaneseSearch.value;
   const burmeseKeyword = burmeseSearch.value;
-  console.log(japaneseKeyword)
   if (!japaneseKeyword && !burmeseKeyword) {
     return vocabularies;
   }
   return vocabularies.filter((item: any) => {
-    console.log("Japanese:", japaneseKeyword);
-    console.log("burmeseKeyword:", burmeseKeyword);
     const matchesJapanese = item.japanese.toLowerCase().includes(japaneseKeyword.toLowerCase());
     const matchesBurmese = item.burmese.toLowerCase().includes(burmeseKeyword.toLowerCase());
     return matchesJapanese && matchesBurmese;

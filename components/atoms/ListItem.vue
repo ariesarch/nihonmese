@@ -14,6 +14,6 @@ defineProps({
 <template>
   <div>
     <!-- Use valueKey to display the corresponding value from the item -->
-    <p>{{ item[valueKey] }}</p>
+    <p class="text-2xl">{{ item[valueKey] }}</p>
   </div>
 </template>

@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 
 // Fetch sentences.json from the server
 const { data:sentences, error } = await useFetch('/api/sentences');
-// console.log(sentences)
 </script>
 
 <template>

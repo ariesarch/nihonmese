@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ListItem from '@/components/atoms/ListItem.vue';
-import { defineProps } from 'vue';
 
 defineProps({
   items: {

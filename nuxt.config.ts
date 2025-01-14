@@ -2,9 +2,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
-  components: [
-    '~/components'
+  components: true,
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxt/content'
   ],
   postcss: {
     plugins: {

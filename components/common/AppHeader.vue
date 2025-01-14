@@ -1,6 +1,6 @@
 // components/common/AppHeader.vue
 <template>
-  <header class="bg-gray-800 text-white">
+  <header class="bg-gray-800 text-white sticky top-0">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -10,6 +10,7 @@
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
             aria-controls="mobile-menu"
             aria-expanded="false"
+            @click="toggleSidebar"
           >
             <span class="sr-only">Open main menu</span>
             <!-- Icon when menu is closed. -->
@@ -71,6 +72,11 @@
 
 <script setup lang="ts">
 // No additional script needed for this header component
+// Managing sidebar visibility at the parent level
+const isSidebarOpen = ref(false);
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
 </script>
 
 <style scoped>

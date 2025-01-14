@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
 
 // Define the props for the parent component
 defineProps({
@@ -12,7 +11,7 @@ defineProps({
 
 <template>
   <section>
-    <h2 class="text-gray-400 text-xl font-bold">Vocabulary List</h2>
-    <MoleculesDoubleList :items="items" valueKey1="japanese" valueKey2="burmese" />
+    <h2 class="text-gray-400 text-3xl font-bold">Vocabulary List</h2>
+    <MoleculesTripleList :items="items" valueKey1="japanese" valueKey2="burmese" valueKey3="english" />
   </section>
 </template>
