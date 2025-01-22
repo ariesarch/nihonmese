@@ -1,0 +1,5 @@
+[
+    {"topic": "နာမ်", "describe": "Name,Job,Nationality,Age", "detail": "noun"},
+    {"topic": "Pronoun", "describe": "Name,Job,Nationality,Age", "detail": "pronoun"},
+    {"topic": "ဝိဘတ်", "describe": "Name,Job,Nationality,Age", "detail": "preposition"}
+]
