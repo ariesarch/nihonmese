@@ -1,89 +1,141 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 const currentPage = ref(1);
 const itemsPerPage = 5;
+const searchQuery = ref('');
 
-// Dummy total items count; replace this with a dynamic value
-const totalItems = ref(20); // Example: replace with a real count fetched from an API or query
+// Reset page when search changes
+watch(searchQuery, () => {
+  currentPage.value = 1;
+});
 
-// Update query dynamically based on the current page
 const query = computed(() => ({
-  path: '/grammar', // Path to the folder containing Markdown files
-  where: { layout: 'grammar' }, // Optional: Filter by layout
-  sort: [{ date: -1 }], // Sort by date in descending order
+  path: '/grammar',
+  where: searchQuery.value ? {
+    $or: [
+      { title: { $regex: searchQuery.value } },
+      { description: { $regex: searchQuery.value } },
+      { date: { $regex: searchQuery.value } },
+      { layout: { $regex: searchQuery.value } }
+    ]
+  } : undefined,
+  sort: [{ date: -1 }],
   limit: itemsPerPage,
-  skip: (currentPage.value - 1) * itemsPerPage, // Skip items for pagination
+  skip: (currentPage.value - 1) * itemsPerPage,
 }));
 
-// Method to change page
+// Query to get total count with search
+const countQuery = computed(() => ({
+  path: '/grammar',
+  where: searchQuery.value ? {
+    $or: [
+      { title: { $regex: searchQuery.value } },
+      { description: { $regex: searchQuery.value } },
+      { date: { $regex: searchQuery.value } },
+      { layout: { $regex: searchQuery.value } }
+    ]
+  } : undefined,
+  sort: [{ date: -1 }],
+}));
+
 const goToPage = (page: number) => {
-  if (page >= 1 && page <= Math.ceil(totalItems.value / itemsPerPage)) {
-    currentPage.value = page;
-  }
+  currentPage.value = page;
 };
 </script>
 
 <template>
   <div class="flex flex-col items-center">
-    <!-- Content Section -->
-    <ContentList :query="query" v-slot="{ list, loading, error }">
-      <!-- Handle Loading State -->
-      <div v-if="loading" class="text-gray-500">Loading...</div>
-      <!-- Handle Error State -->
-      <div v-else-if="error" class="text-red-500">Error: {{ error.message }}</div>
-      <!-- Display Content -->
-      <div v-else>
-        <div class="grid grid-cols-5 gap-4">
-          <div
-            v-for="item in list"
-            :key="item._path"
-            class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-          >
-            <nuxt-link  :to="item._path" class="cursor-pointer">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {{ item.title }}
-            </h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">
-              {{ item.description }}
-            </p>
-            <nuxt-link :to="item._path" class="text-blue-500 hover:underline">
-              Read more
-            </nuxt-link>
-            </nuxt-link>
+    <h1 class="text-3xl font-bold mb-8 text-center">Japanese Grammar</h1>
+    
+    <!-- Search Input -->
+    <div class="mb-8 max-w-md mx-auto w-full">
+      <div class="relative">
+        <input 
+          v-model="searchQuery"
+          type="search"
+          placeholder="Search by title, description, date, or layout..."
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <span class="absolute right-3 top-2.5 text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </span>
+      </div>
+      <!-- Search info -->
+      <div class="text-sm text-gray-500 mt-1">
+        Search in: Title, Description, Date (YYYY-MM-DD), Layout (Case-sensitive)
+      </div>
+    </div>
+
+    <ContentList :query="query">
+      <template #default="{ list }">
+        <!-- Grid layout for items -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div v-for="article in list" :key="article._path" class="card">
+            <NuxtLink :to="article._path" class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+              <h2 class="text-xl font-semibold mb-2">{{ article.title }}</h2>
+              <p class="text-gray-600 mb-2">{{ article.description }}</p>
+              <div class="text-sm text-gray-500">
+                <div>Date: {{ article.date }}</div>
+                <div>Layout: {{ article.layout }}</div>
+              </div>
+            </NuxtLink>
           </div>
         </div>
 
-        <!-- Pagination Controls -->
-        <div class="flex justify-center mt-4 space-x-2">
-          <button
-            class="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
-            :disabled="currentPage === 1"
-            @click="goToPage(currentPage - 1)"
-          >
-            Previous {{itemsPerPage}}
-          </button>
-          <button
-            v-for="page in Math.ceil(totalItems / itemsPerPage)"
-            :key="page"
-            class="px-3 py-1 rounded"
-            :class="{
-              'bg-blue-500 text-white': page === currentPage,
-              'bg-gray-200 text-gray-600 hover:bg-gray-300': page !== currentPage,
-            }"
-            @click="goToPage(page)"
-          >
-            {{ page }}
-          </button>
-          <button
-            class="px-3 py-1 text-white bg-blue-500 rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
-            :disabled="currentPage * itemsPerPage >= totalItems"
-            @click="goToPage(currentPage + 1)"
-          >
-            Next{{totalItems}}
-          </button>
+        <!-- Get total count for pagination -->
+        <ContentList :query="countQuery">
+          <template #default="{ list: allItems }">
+            <!-- Pagination -->
+            <div v-if="allItems.length > 0" class="mt-8 flex justify-center">
+              <nav class="flex items-center gap-2">
+                <button 
+                  @click="goToPage(currentPage - 1)" 
+                  :disabled="currentPage === 1"
+                  class="px-3 py-1 rounded border hover:bg-gray-100 disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                
+                <!-- Page numbers -->
+                <div class="flex gap-1">
+                  <button 
+                    v-for="page in Math.ceil(allItems.length / itemsPerPage)" 
+                    :key="page"
+                    @click="goToPage(page)"
+                    :class="[
+                      'px-3 py-1 rounded border',
+                      currentPage === page ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
+                    ]"
+                  >
+                    {{ page }}
+                  </button>
+                </div>
+
+                <button 
+                  @click="goToPage(currentPage + 1)" 
+                  :disabled="currentPage >= Math.ceil(allItems.length / itemsPerPage)"
+                  class="px-3 py-1 rounded border hover:bg-gray-100 disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </nav>
+            </div>
+          </template>
+          <template #not-found>
+            <div class="text-center text-gray-500 my-8">
+              No items found
+            </div>
+          </template>
+        </ContentList>
+      </template>
+      <template #not-found>
+        <div class="text-center text-gray-500 my-8">
+          No results found for "{{ searchQuery }}"
         </div>
-      </div>
+      </template>
     </ContentList>
   </div>
 </template>

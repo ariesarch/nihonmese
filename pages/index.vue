@@ -1,55 +1,80 @@
+<template>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8 text-center">Learn Japanese</h1>
+    
+    <ContentList v-slot="{ list }" :query="query">
+      <!-- Grid layout for items -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-for="article in list" :key="article._path" class="card">
+          <NuxtLink :to="article._path" class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+            <h2 class="text-xl font-semibold mb-2">{{ article.title }}</h2>
+            <p class="text-gray-600">{{ article.description }}</p>
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Get total count for pagination -->
+      <ContentList :query="countQuery" v-slot="{ list: allItems }">
+        <!-- Pagination -->
+        <div class="mt-8 flex justify-center">
+          <nav class="flex items-center gap-2">
+            <button 
+              @click="goToPage(currentPage - 1)" 
+              :disabled="currentPage === 1"
+              class="px-3 py-1 rounded border hover:bg-gray-100 disabled:opacity-50"
+            >
+              Previous
+            </button>
+            
+            <!-- Page numbers -->
+            <div class="flex gap-1">
+              <button 
+                v-for="page in Math.ceil(allItems.length / itemsPerPage)" 
+                :key="page"
+                @click="goToPage(page)"
+                :class="[
+                  'px-3 py-1 rounded border',
+                  currentPage === page ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
+                ]"
+              >
+                {{ page }}
+              </button>
+            </div>
+
+            <button 
+              @click="goToPage(currentPage + 1)" 
+              :disabled="currentPage >= Math.ceil(allItems.length / itemsPerPage)"
+              class="px-3 py-1 rounded border hover:bg-gray-100 disabled:opacity-50"
+            >
+              Next
+            </button>
+          </nav>
+        </div>
+      </ContentList>
+    </ContentList>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-// Fetch vocabularies.json from the server
-const { data:vocabularies, error } = await useFetch('/api/vocabularies');
-// Create search filters for both Japanese and Burmese
-const japaneseSearch = ref('');
-const burmeseSearch = ref('');
+const currentPage = ref(1);
+const itemsPerPage = 5;
 
-// Computed property to filter the vocabularies based on search terms
-const filteredVocabularies = computed(() => {
-  if (!vocabularies) return [];
-  const japaneseKeyword = japaneseSearch.value;
-  const burmeseKeyword = burmeseSearch.value;
-  if (!japaneseKeyword && !burmeseKeyword) {
-    return vocabularies;
-  }
-  return vocabularies.filter((item: any) => {
-    const matchesJapanese = item.japanese.toLowerCase().includes(japaneseKeyword.toLowerCase());
-    const matchesBurmese = item.burmese.toLowerCase().includes(burmeseKeyword.toLowerCase());
-    return matchesJapanese && matchesBurmese;
-  });
-});
+const query = computed(() => ({
+  path: '/grammar',
+  sort: [{ date: -1 }],
+  limit: itemsPerPage,
+  skip: (currentPage.value - 1) * itemsPerPage,
+}));
+
+// Query to get total count
+const countQuery = computed(() => ({
+  path: '/grammar',
+  sort: [{ date: -1 }],
+}));
+
+const goToPage = (page: number) => {
+  currentPage.value = page;
+};
 </script>
-
-<template>
-  <div class="mx-auto flex flex-col justify-center items-center">
-    <h1 class="my-4 font-bold text-gray-500 text-3xl"><b>{{vocabularies.length}}</b> Vocabularies</h1>
-    
-    <!-- Search Inputs for Japanese and Burmese -->
-    <div class="flex gap-2">
-      <input 
-        v-model="burmeseSearch" 
-        type="text" 
-        placeholder="Search Burmese"
-        class="border p-2 mb-4"
-        autofocus
-      />
-      <input 
-        v-model="japaneseSearch" 
-        type="text" 
-        placeholder="Search Japanese"
-        class="border p-2 mb-4"
-      />
-    </div>
-    
-    <!-- Error or Loading States -->
-    <div v-if="error">Error loading vocabularies.</div>
-    <div v-else-if="!vocabularies">Loading...</div>
-    <div v-else>
-      <!-- Pass filtered vocabularies to the DoubleList component -->
-      <OrganismsVocabularyList :items="filteredVocabularies.value" />
-    </div>
-  </div>
-</template>

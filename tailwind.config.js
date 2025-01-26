@@ -1,13 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    `components/**/*.{vue,js}`,
-    `layouts/**/*.vue`,
-    `pages/**/*.vue`,
-    `composables/**/*.{js,ts}`,
-    `plugins/**/*.{js,ts}`,
-    `App.{js,ts,vue}`,
-    `app.{js,ts,vue}`
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./plugins/**/*.{js,ts}",
+    "./nuxt.config.{js,ts}",
+    "./app.vue",
   ],
   theme: {
     extend: {
@@ -65,8 +64,58 @@ module.exports = {
       spacing: {
         'nav': '4rem',
         'section_x': '5rem',
-      }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'h1, h2, h3, h4': {
+              'scroll-margin-top': '5rem',
+            },
+            maxWidth: '100ch',
+            color: 'rgb(55 65 81)',
+            h1: {
+              color: 'rgb(17 24 39)',
+              fontWeight: '700',
+            },
+            h2: {
+              color: 'rgb(31 41 55)',
+              fontWeight: '600',
+            },
+            h3: {
+              color: 'rgb(55 65 81)',
+              fontWeight: '500',
+            },
+            a: {
+              color: 'rgb(37 99 235)',
+              textDecoration: 'none',
+              '&:hover': {
+                color: 'rgb(29 78 216)',
+                textDecoration: 'underline',
+              },
+            },
+            pre: {
+              backgroundColor: 'rgb(17 24 39)',
+              color: 'rgb(243 244 246)',
+              borderRadius: '0.5rem',
+            },
+            code: {
+              color: 'rgb(31 41 55)',
+              backgroundColor: 'rgb(243 244 246)',
+              borderRadius: '0.25rem',
+              padding: '0.25rem 0.375rem',
+              fontWeight: '400',
+            },
+            'pre code': {
+              color: 'inherit',
+              backgroundColor: 'transparent',
+              padding: '0',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
