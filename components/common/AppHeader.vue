@@ -8,7 +8,6 @@
             <span class="text-xl font-bold text-blue-600">Nihonmese</span>
           </NuxtLink>
         </div>
-
         <!-- Global Search -->
         <div class="flex-1 max-w-2xl relative">
           <div class="relative">
@@ -49,12 +48,11 @@
         <div class="hidden lg:flex items-center space-x-8">
           <NuxtLink 
             v-for="item in navigationItems" 
-            :key="item.path"
-            :to="item.path"
-            class="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-            :class="{ 'text-blue-600': $route.path.startsWith(item.path) }"
+            :key="item.text"
+            :to="item.link"
+            class="text-gray-600 hover:text-blue-600"
           >
-            {{ item.name }}
+            {{ item.text }}
           </NuxtLink>
         </div>
       </div>
@@ -74,9 +72,9 @@ const searchResults = ref([])
 const searchInput = ref(null)
 
 const navigationItems = [
-  { name: 'Grammar', path: '/grammar' },
-  { name: 'Vocabulary', path: '/vocabulary' },
-  { name: 'Lessons', path: '/lessons' },
+  { text: 'Grammar', link: '/grammar' },
+  { text: 'Vocabulary', link: '/vocabulary' },
+  { text: 'Lessons', link: '/lessons' },
 ]
 
 // Debounced search function

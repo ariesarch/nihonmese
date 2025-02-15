@@ -208,18 +208,18 @@ onUnmounted(() => {
 .prose li {
   @apply mb-2;
 }
-
+/* 
 .prose code {
   @apply bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono;
-}
+} */
 
 .prose pre {
   @apply bg-gray-900 text-white p-4 rounded-lg overflow-x-auto mb-4;
 }
 
-.prose blockquote {
+/* .prose blockquote {
   @apply border-l-4 border-gray-300 pl-4 italic my-4;
-}
+} */
 
 .prose img {
   @apply rounded-lg shadow-sm my-4 max-w-full mx-auto;

@@ -5,7 +5,15 @@ export default defineNuxtConfig({
   components: true,
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxt/content'
+    '@nuxt/content',
+    // function (_: any, nuxt: { hook: (arg0: string, arg1: (nitro: any) => void) => void }) {
+    //   nuxt.hook('nitro:init', nitro => {
+    //     nitro.options.scanDirs = []
+    //   })
+    // }
+  ],
+  buildModules: [
+    '@nuxt/typescript-build',
   ],
   postcss: {
     plugins: {

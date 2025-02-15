@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=nihonmese
+    ports:
+      - "27007:27017"
+    networks:
+      - nihonmese-network
+    volumes:
+      - mongo_data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - "2000:8081" # Access Mongo Express on port 2000
+    env_file: .env
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    links:
+      - mongo
+    networks:
+      - nihonmese-network
+
+volumes:
+  mongo_data:
+networks:
+  nihonmese-network:
+    driver: bridge
