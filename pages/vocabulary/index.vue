@@ -14,7 +14,7 @@ const { data: vocabularies, error } = await useFetch<IVocab[]>('/api/vocabularie
     <div v-else-if="!vocabularies">Loading...</div>
     <div v-else>
       <!-- Pass filtered vocabularies to the DoubleList component -->
-      <!-- <OrganismsSentenceList :items="vocabularies" /> -->
+      <OrganismsVocabularyList :items="vocabularies" />
     </div>
   </div>
 </template>

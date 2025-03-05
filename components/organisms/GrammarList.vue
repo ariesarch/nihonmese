@@ -10,8 +10,8 @@ defineProps({
 </script>
 
 <template>
-  <section class="ml-64">
+  <section>
     <h2 class="text-gray-400 text-xl font-bold">Grammar List</h2>
-    <MoleculesDoubleList :items="items" valueKey1="topic" valueKey2="pattern" />
+    <MoleculesDoubleList :items="items" valueKey1="japanese" valueKey2="burmese" />
   </section>
 </template>

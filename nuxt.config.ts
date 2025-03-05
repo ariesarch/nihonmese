@@ -12,6 +12,12 @@ export default defineNuxtConfig({
     //   })
     // }
   ],
+  content: {
+    markdown: {
+      // This option allows you to use Vue components in your markdown content
+      vue: true
+    }
+  },
   buildModules: [
     '@nuxt/typescript-build',
   ],

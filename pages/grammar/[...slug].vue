@@ -1,27 +1,20 @@
 <template>
   <div class="flex min-h-screen">
     <!-- Mobile Sidebar Toggle -->
-    <button 
-      @click="isSidebarOpen = !isSidebarOpen"
-      class="fixed bottom-20 right-4 z-50 lg:hidden bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
-    >
+    <button @click="isSidebarOpen = !isSidebarOpen"
+      class="fixed bottom-20 right-4 z-50 lg:hidden bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors">
       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
       </svg>
     </button>
 
     <!-- Sidebar Backdrop -->
-    <div 
-      v-if="isSidebarOpen" 
-      class="fixed inset-0 bg-black/50 z-40 lg:hidden"
-      @click="isSidebarOpen = false"
-    />
+    <div v-if="isSidebarOpen" class="fixed inset-0 bg-black/50 z-40 lg:hidden" @click="isSidebarOpen = false" />
 
     <!-- Sidebar -->
-    <aside 
+    <aside
       class="fixed lg:sticky top-16 h-[calc(100vh-4rem)] w-72 bg-white border-r transform transition-transform duration-300 z-40 overflow-hidden"
-      :class="[isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0']"
-    >
+      :class="[isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0']">
       <div class="h-full flex flex-col bg-white">
         <div class="p-4 border-b">
           <h2 class="font-semibold text-gray-800">Table of Contents</h2>
@@ -29,15 +22,10 @@
         <nav class="flex-1 overflow-y-auto p-4">
           <ul class="space-y-1">
             <li v-for="heading in toc" :key="heading.id">
-              <a 
-                :href="'#' + heading.id"
-                class="block py-2 px-3 rounded hover:bg-gray-100 text-sm"
-                :class="[
+              <a :href="'#' + heading.id" class="block py-2 px-3 rounded hover:bg-gray-100 text-sm" :class="[
                   'pl-' + (heading.depth * 4),
                   { 'text-blue-600 font-medium': currentSection === heading.id }
-                ]"
-                @click="isSidebarOpen = false"
-              >
+                ]" @click="isSidebarOpen = false">
                 {{ heading.text }}
               </a>
             </li>
@@ -52,15 +40,17 @@
         <article v-if="page" class="prose prose-lg max-w-none bg-white rounded-lg shadow-sm p-8">
           <h1 class="text-3xl font-bold mb-8">{{ page.title }}</h1>
           <ContentRenderer :value="page" />
+          <OrganismsExerciseTypeModal ref="modal" title="Confirm Action" message="Are you sure you want to proceed?" />
+          <button class="px-6 py-3 bg-blue-600 text-white rounded-md" @click="openModal">
+            Open Modal
+          </button>
         </article>
-        
+
         <div v-else class="text-center py-16">
           <h2 class="text-2xl font-semibold text-gray-700 mb-4">Content Not Found</h2>
           <p class="text-gray-600 mb-8">The page you're looking for doesn't exist or has been moved.</p>
-          <NuxtLink 
-            to="/" 
-            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-          >
+          <NuxtLink to="/"
+            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
             Return Home
           </NuxtLink>
         </div>
@@ -69,8 +59,9 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const { path } = route
@@ -106,6 +97,13 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', updateCurrentSection)
 })
+const modal = ref < InstanceType < typeof OrganismsExerciseTypeModal >> ();
+
+const openModal = () => {
+  modal.value?.openModal();  // Use the exposed method to open the modal
+};
+const { data: sentences, error } = await useFetch('/api/sentences');
+
 </script>
 
 <style>
