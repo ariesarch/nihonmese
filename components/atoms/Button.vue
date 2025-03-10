@@ -1,15 +1,15 @@
 <template>
   <button :class="[
     'rounded',
-    variant === 'outline' ? 'bg-transparent border border-indigo-500 text-indigo-500 hover:bg-indigo-100 hover:text-white' : 'bg-indigo-500 text-white hover:bg-indigo-600',
+    variant === 'outline' ? 'bg-transparent border border-primary-500 text-gray-500 hover:bg-primary-500 hover:text-white' : 'bg-primary text-white hover:bg-primary-500',
     sizeClasses[size]
-  ]" :disabled="disabled" @click="$emit('click')">
+  ]" :disabled="disabled" @click="handleClick">
     <slot />
   </button>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps<{
   variant: 'solid' | 'outline';
@@ -23,5 +23,12 @@ const sizeClasses = {
   md: 'px-4 py-2 text-base',
   lg: 'px-5 py-2.5 text-lg',
   xl: 'px-6 py-3 text-xl',
+};
+const emit = defineEmits<{
+  (event: 'click'): void;
+}>();
+const handleClick = (event: MouseEvent) => {
+  event.stopPropagation(); // Prevent the event from bubbling up to the parent
+  emit('click'); // Emit the click event to the parent
 };
 </script>

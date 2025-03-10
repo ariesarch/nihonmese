@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
 module.exports = {
     content: [
         "./components/**/*.{js,vue,ts}",
@@ -11,6 +12,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                ...colors,
                 indigo: {
                     50: '#E0E7FF',
                     100: '#C7D2FE',
@@ -23,23 +25,28 @@ module.exports = {
                     800: '#312E81',
                     900: '#1E1A78',
                 },
-                primary: '#4F46E5',
+                // primary: '#4F46E5',
+                primary: colors.pink,
                 secondary: '#A5B4FC',
                 background: '#F8FAFC',
                 text: '#1F2937',
+                success: '#008000'
             },
             borderColor: theme => ({
                 ...theme('colors'),
-                primary: '#4F46E5',
+                // primary: '#4F46E5',
+                primary: colors.pink,
             }),
             backgroundColor: theme => ({
                 ...theme('colors'),
-                primary: '#4F46E5',
+                // primary: '#4F46E5',
+                primary: colors.pink,
                 primaryHover: '#4338CA',
             }),
             textColor: theme => ({
                 ...theme('colors'),
-                primary: '#4F46E5',
+                // primary: '#4F46E5',
+                primary: colors.pink,
             }),
             // Font size
             fontSize: {

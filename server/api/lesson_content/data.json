@@ -1,3 +1,30 @@
 [
-    {"topic": "第3課", "describe": "Name,Job,Nationality,Age", "detail": "lesson-3"}   
+    {
+        "chapter_id": "1",
+        "lesson_id": "1",
+        "format": "vocab",
+        "types": [
+            "drag",
+            "multi",
+            "writing",
+            "fill"
+        ],
+        "info": [
+            "std_drag",
+            "vocab_multi",
+            "vocab_writing",
+            "vocab_fill"
+        ],
+        "quizlet": {
+            "だいがく": {"en":"college; university","mm":"တက္ကသိုလ် ကျောင်းသား/သူ"},
+            "こうこう": {"en":"high school","mm":"အထက်တန်းကျောင်း"},
+            "がくせい": {"en":"student","mm":"ကျောင်းသား/သူ"},
+            "だいがくせい": {"en":"college student","mm":"ကောလိပ်ကျောင်းသား/သူ"},
+            "りゅうがくせい": {"en":"international student","mm":"နိုင်ငံတကာ တက္ကသိုလ် ကျောင်းသား/သူ"},
+            "せんせい": {"en":"teacher; professor","mm":"ဆရာ/မ"},
+            "～ねんせい": {"en":"...year student","mm":"-နှစ် ကျောင်းသား/သူ"},
+            "いちねんせい": {"en":"first-year student","mm":"ပထမနှစ် ကျောင်းသား/သူ"},
+            "せんこう": {"en":"major","mm":"မေဂျာ/အထူးပြုဘာသာ"}
+        }
+    }
 ]

@@ -40,10 +40,10 @@
         <article v-if="page" class="prose prose-lg max-w-none bg-white rounded-lg shadow-sm p-8">
           <h1 class="text-3xl font-bold mb-8">{{ page.title }}</h1>
           <ContentRenderer :value="page" />
-          <OrganismsExerciseTypeModal ref="modal" title="Confirm Action" message="Are you sure you want to proceed?" />
+          <!-- <OrganismsExerciseTypeModal ref="modal" title="Confirm Action" message="Are you sure you want to proceed?" />
           <button class="px-6 py-3 bg-blue-600 text-white rounded-md" @click="openModal">
             Open Modal
-          </button>
+          </button> -->
         </article>
 
         <div v-else class="text-center py-16">
@@ -117,9 +117,11 @@ const { data: sentences, error } = await useFetch('/api/sentences');
 }
 
 .prose h2 {
-  @apply text-2xl font-semibold mt-8 mb-4 text-gray-900 border-b pb-2;
+  @apply text-2xl font-semibold mt-8 mb-4 text-primary-500 border-b pb-2;
 }
-
+.prose a {
+  @apply text-primary-500;
+}
 .prose h3 {
   @apply text-xl font-semibold mt-6 mb-3 text-gray-800;
 }
@@ -192,7 +194,7 @@ const { data: sentences, error } = await useFetch('/api/sentences');
 
 /* Other elements */
 .prose p {
-  @apply text-gray-700 leading-relaxed mb-4;
+  @apply text-gray-900 leading-relaxed mb-4;
 }
 
 .prose ul {
