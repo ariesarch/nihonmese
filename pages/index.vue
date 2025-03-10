@@ -30,7 +30,7 @@ const currentPage = ref(1);
 const itemsPerPage = 6;
 
 const query = computed(() => ({
-  path: '/grammar',
+  path: '/genki',
   sort: [{ __id: 1 }],
   limit: itemsPerPage,
   skip: (currentPage.value - 1) * itemsPerPage,
@@ -38,7 +38,7 @@ const query = computed(() => ({
 
 // Query to get total count
 const countQuery = computed(() => ({
-  path: '/grammar',
+  path: '/genki',
   sort: [{ __id: 1 }],
 }));
 

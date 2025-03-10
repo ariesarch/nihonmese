@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full bg-transparent">
-        <h6 class="text-center font-bold">Choose the correct definition for each
-            {{isNormalDir ? 'Japanese' : selectedLang == 'en' ? 'English' :'Myanmar'}} expression.</h6>
+    <div class="w-full h-full bg-primary-0">
+        <!-- <h6 class="text-center font-bold">Choose the correct definition for each
+            {{isNormalDir ? 'Japanese' : selectedLang == 'en' ? 'English' :'Myanmar'}} expression.</h6> -->
         <div v-if="currentQuestionIndex == 0 || currentQuestionIndex == quizData.length"
             class="flex justify-center items-center space-x-6">
             <!-- Displaying the current languages -->
@@ -9,6 +9,7 @@
                 <span class="text-xl font-semibold">{{ isNormalDir ? 'Japanese' : selectedLang =='en'? 'English':
                     'Myanmar' }}</span>
             </div>
+
 
             <!-- Bi-Directional Arrow -->
             <div class="text-3xl cursor-pointer">
@@ -21,6 +22,7 @@
                     'Japanese' }}</span>
             </div>
         </div>
+        <h3 class="text-center">Your score: {{ score }} / {{ quizData.length }}</h3>
         <!-- Display the current question -->
         <div v-if="!quizFinished && currentQuestionIndex < quizData.length" class="mb-4">
             <h3 class="font-extrabold text-center">{{ quizData[currentQuestionIndex].question }}</h3>
@@ -40,8 +42,7 @@
             </div>
         </div>
         <!-- Optional: Display the result -->
-        <div v-else>
-            <h3 class="text-center">Your score: {{ score }} / {{ quizData.length }}</h3>
+        <div v-else class="h-64 overflow-y-auto mx-6">
             <div v-for="(questionData, index) in quizData" :key="index" class="mb-4">
                 <h3 class="text-start">{{questionData.question }}</h3>
                 <div class="flex-wrap flex flex-col sm:flex-row gap-2 justify-start border-b pb-4">
@@ -68,8 +69,7 @@
 import { ref, defineProps, watchEffect } from 'vue';
 
 const props = defineProps<{
-    lesson: Lesson;
-    selectedLang: string;
+    quiz: Lesson;
 }>();
 type Answer = {
     isAnswer: boolean;
@@ -83,6 +83,7 @@ interface Lesson {
     format: string;
     quizlet: { [key: string]: any };
 }
+const selectedLang = ref<string>('mm');
 const isNormalDir = ref(true);
 const quizData = ref<{ [key: string]: any }>({});
 const score = ref(0);
@@ -93,7 +94,7 @@ const toggleSourceLang = () => {
     currentQuestionIndex.value =0;
     quizFinished.value = false;
     score.value =0;
-    generateMultipleChoiceQuiz(props.lesson)
+    generateMultipleChoiceQuiz(props.quiz)
 }
 const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
     // convert the quizlet to the selected type
@@ -123,11 +124,11 @@ const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
                 keys.push(key);
                 keys2.push(key);
                 console.log("Value:", value)
-                preparedQuiz[key] = value[props.selectedLang];
+                preparedQuiz[key] = value[selectedLang.value];
             }else{
-                keys.push(value[props.selectedLang]);
-                keys2.push(value[props.selectedLang]);
-                preparedQuiz[value[props.selectedLang]] = key
+                keys.push(value[selectedLang.value]);
+                keys2.push(value[selectedLang.value]);
+                preparedQuiz[value[selectedLang.value]] = key
             }
         }
         // if(!isNormalDir) {
@@ -213,9 +214,9 @@ const nextQuestion = () => {
     console.log(currentQuestionIndex.value)
 }
 watchEffect(async () => {
-    if (props.lesson) {
-        quizData.value = await generateMultipleChoiceQuiz(props.lesson);
-        console.log(quizData.value)
+    if (props.quiz) {
+        quizData.value = await generateMultipleChoiceQuiz(props.quiz);
+        console.log('result quizdata', quizData.value)
     }
 });
 const speakText = (text:string) => {
