@@ -68,9 +68,7 @@
 <script setup lang="ts">
 import { ref, defineProps, watchEffect } from 'vue';
 
-const props = defineProps<{
-    quiz: Lesson;
-}>();
+
 type Answer = {
     isAnswer: boolean;
     content: string;
@@ -83,6 +81,9 @@ interface Lesson {
     format: string;
     quizlet: { [key: string]: any };
 }
+const props = defineProps<{
+    quiz: Lesson;
+}>();
 const selectedLang = ref<string>('mm');
 const isNormalDir = ref(true);
 const quizData = ref<{ [key: string]: any }>({});
