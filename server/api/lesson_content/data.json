@@ -4,7 +4,7 @@
         "lesson_id": "1",
         "vocabs": [
             {
-                "vocab_id": "1",
+                "vocab_id": 1,
                 "format": "vocab",
                 "quizlet": {
                     "だいがく": {
@@ -46,7 +46,7 @@
                 }
             },
             {
-                "vocab_id": "2",
+                "vocab_id": 2,
                 "format": "vocab",
                 "quizlet" : {
                     "わたし" : {"en":"I","mm":"ကျနော်/ကျမ"},
@@ -64,7 +64,7 @@
                 }
             },
             {
-                "vocab_id": "3",
+                "vocab_id": 3,
                 "format": "vocab",
                 "quizlet" : {
                     "にほん" : {"en":"Japan","mm":"ဂျပန်"},
@@ -84,7 +84,7 @@
                 }
             },
             {
-                "vocab_id": "4",
+                "vocab_id": 4,
                 "format": "vocab",
                 "quizlet": {
                     "イギリス": {

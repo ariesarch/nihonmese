@@ -16,14 +16,14 @@
         </div>
         <div class="flex justify-center gap-2 bg-gray-100 py-2">
             <AtomsButton variant="outline" size="sm" @click="goNext(false)">Prev</AtomsButton>
-            <AtomsButton variant="outline" size="sm" @click="goNext" :disabled="currentIterator >= totalLength">Next{{ totalLength }}</AtomsButton>
+            <AtomsButton variant="outline" size="sm" @click="goNext" :disabled="currentIterator >= totalLength">Next</AtomsButton>
         </div>
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps,onMounted } from 'vue';
+import { ref, defineProps,onMounted,defineEmits,watch } from 'vue';
 type contentsType = {
     [key: string]: any;
 }
@@ -35,8 +35,6 @@ const flipped = ref(false);
 const front = ref('');
 const back = ref('');
 const back_mm = ref('');
-let audioStartPoint = 5;
-let audioEndPoint = 0;
 let currentIterator = 0;
 let keys: (string | string)[] = [];
 let totalLength = 0;
@@ -53,18 +51,46 @@ const setValues = () => {
     back_mm.value = props.contents[keys[currentIterator]].mm;
 }
 const goNext = (isNext = true) => {
-    if(currentIterator >= totalLength) {
-        return;
+    if (isNext && currentIterator >= totalLength){
+        console.log('case to updateParentVocab')
+        updateParentVocab();
     }
-    currentIterator = isNext? currentIterator+1 : currentIterator -1;
-    console.log(currentIterator)
-    setValues();
+    else if ((!isNext && currentIterator == 0)) {
+        return;
+    }else{
+        currentIterator = isNext ? currentIterator + 1 : currentIterator - 1;
+        console.log(currentIterator)
+        setValues();
+    }
+    flipped.value = false;
 }
-onMounted(()=>{
-    keys = Object.keys(props.contents);
-    totalLength = keys.length;
-    setValues();
-})
+const initiateQuizlet = () => {
+    if (props.contents) {
+        keys = Object.keys(props.contents);
+        console.log(keys)
+        totalLength = keys.length;
+        currentIterator =0;
+        setValues();
+    }
+}
+
+const emit = defineEmits<{
+    (e: 'update-vocab-id'): void;
+}>();
+const updateParentVocab = () => {
+    emit('update-vocab-id');
+    console.log("Emit")
+}
+watch(
+    () => props.contents,
+    () => {
+        initiateQuizlet();
+        setValues();
+        flipped.value = false;
+    },
+    { immediate: true }
+);
+
 </script>
 
 <style scoped>

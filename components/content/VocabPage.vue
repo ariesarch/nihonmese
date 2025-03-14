@@ -8,7 +8,7 @@
                 @click="isStartJourney = !isStartJourney" v-if="!isStartJourney">
                 Start Journey
             </AtomsButton>
-            <TemplatesVocab v-else :vocabulary="vocabulary" />
+            <TemplatesVocab v-else :vocabularies="vocabularies" />
         </div>
     </div>
 </template>
@@ -24,12 +24,12 @@ const props = defineProps < {
     }
 } > ();
 interface Vocabulary {
-    vocab_id: string;
+    vocab_id: number;
     format: string;
     quizlet: { [key: string]: any };
 }
 const isStartJourney = ref(false);
-const vocabulary = ref<Vocabulary | null>(null); 
+const vocabularies = ref<Vocabulary[]>([]); 
 let isPlaying = ref(false);
 let sound = new Howl({
     src: ['/audio/genki/vocab/K01_05.mp3']
@@ -48,7 +48,7 @@ const processAudio = () => {
 watchEffect(async()=> {
     if (isStartJourney) {
         const fetchedLesson = await $fetch(`/api/lesson_content?chapter_id=${props.config.chapter_id}&lesson_id=${props.config.lesson_id}&vocab_id=${props.config.vocab_id}`);
-        vocabulary.value = fetchedLesson as Vocabulary;
+        vocabularies.value = fetchedLesson as Vocabulary[];
     }
 })
 </script>
