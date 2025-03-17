@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/content',
+    '@pinia/nuxt'
     // function (_: any, nuxt: { hook: (arg0: string, arg1: (nitro: any) => void) => void }) {
     //   nuxt.hook('nitro:init', nitro => {
     //     nitro.options.scanDirs = []

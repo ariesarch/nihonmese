@@ -1,42 +1,49 @@
 <template>
     <div class="">
-        <div class="text-3xl fixed top-0 right-2" @click.native="processAudio">🔈</div>
         <OrganismsFlipCard v-if="!isFinishedFlash && currentVocabData" :contents="currentVocabData"
-            @update-vocab-id="incrementVocabId" />
-        <!-- <OrganismsQuizMultiple v-else :quiz="vocabulary" /> -->
+            :isNormalDir="isNormalDir" :selectedLang="selectedLang" @update-vocab-id="vocabIdByFlash" />
+        <OrganismsQuizMultiple v-else-if="currentVocabData" :quiz="currentVocabData"
+            :selectedLang="selectedLang" :isNormalDir="isNormalDir" />
     </div>
 </template>
 <script setup lang="ts">
 import { ref, defineProps, onMounted } from 'vue';
-
+import { useChapterStore } from '@/store/chapter'
+const chapterStore = useChapterStore();
 interface Vocabulary {
     vocab_id: number;
     format: string;
+    title: string;
     quizlet: { [key: string]: any };
 }
-type contentsType = {
-    [key: string]: any;
+interface vocabType {
+    vocab_audio: string;
+    vocab_data: Vocabulary[]
 }
+type langType = string; 
+type dirType = boolean; 
+// const vocabulary: vocabType = chapterStore.chapter.vocabs
+const vocabulary = ref(chapterStore.chapter);
+
 const props = defineProps<{
-    vocabularies: Vocabulary [];
+    selectedLang: langType;
+    isNormalDir: dirType;
 }>();
 const isFinishedFlash = ref(false);
 const vocabId = ref<number>(1);
-const currentVocabData = ref<contentsType>();
-const processAudio = () => {
-    let sound = new Howl({
-        src: ['/audio/genki/vocab/K01_05.mp3']
-    });
-    sound.play();
-}
+const currentVocabData = ref<Vocabulary>();
 onMounted(() => {
-    currentVocabData.value = props.vocabularies.find((vocab:Vocabulary) => vocab?.vocab_id == vocabId.value)?.quizlet;
+    currentVocabData.value = vocabulary.value.vocabs.vocab_data.find((vocab:Vocabulary) => vocab?.vocab_id == vocabId.value);
 })
-const incrementVocabId = () => {
-    if(vocabId.value <= props.vocabularies.length) {
+const vocabIdByFlash = () => {
+    if(vocabId.value < vocabulary.value.vocabs.vocab_data.length) {
         vocabId.value += 1;
-        currentVocabData.value = props.vocabularies.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value)?.quizlet;
+        currentVocabData.value = vocabulary.value.vocabs.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
         console.log("Updated:", currentVocabData.value)
+    }else{
+        vocabId.value = 1;
+        currentVocabData.value = vocabulary.value.vocabs.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
+        isFinishedFlash.value = true
     }
 }
 </script>

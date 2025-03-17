@@ -1,7 +1,7 @@
 <template>
   <button :class="[
     'rounded',
-    variant === 'outline' ? 'bg-transparent border border-primary-500 text-gray-500 hover:bg-primary-500 hover:text-white' : 'bg-primary text-white hover:bg-primary-500',
+    variant === 'outline' ? 'bg-transparent border border-primary-500 text-gray-500 hover:bg-primary-500 hover:text-white' : 'bg-primary-500 text-white hover:bg-primary-500',
     sizeClasses[size]
   ]" :disabled="disabled" @click="handleClick">
     <slot />

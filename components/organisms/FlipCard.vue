@@ -1,22 +1,31 @@
 <template>
-    <div class="h-80 w-full cursor-pointer flex flex-col justify-center">
-        <div class="flip-card w-full flex-grow" :class="{ 'rotate-x-180': flipped }">
+    <div class="h-full w-full cursor-pointer flex flex-col justify-center gap-4">
+        <h4 class="text-center text-primary-500">{{ vocabTitle }}</h4>
+        <div class="flip-card w-full bg-primary-300 p-3 relative h-40" :class="{ 'rotate-x-180': flipped }">
             <div @click="flipCard"
                 class="flip-card-front w-full h-full absolute flex flex-col items-center justify-center">
                 <h4 class="text-2xl font-bold text-primary-500">{{front}}</h4>
+                <h4 class="my-auto text-2xl font-bold text-green-700">{{ front_optional }}</h4>
             </div>
 
             <div @click="flipCard"
                 class="flip-card-back w-full h-full absolute flex items-center justify-center rotate-x-180">
                 <div>
                     <h4 class="my-auto text-2xl font-bold text-green-700">{{ back }}</h4>
-                    <h4 class="my-auto text-2xl font-bold text-green-700">{{ back_mm }}</h4>
+                    <h4 class="my-auto text-2xl font-bold text-green-700">{{ back_optional }}</h4>
                 </div>
             </div>
         </div>
-        <div class="flex justify-center gap-2 bg-gray-100 py-2">
-            <AtomsButton variant="outline" size="sm" @click="goNext(false)">Prev</AtomsButton>
-            <AtomsButton variant="outline" size="sm" @click="goNext" :disabled="currentIterator >= totalLength">Next</AtomsButton>
+        <div class="flex justify-center gap-2 bg-gray-100 py-2 flex-wrap">
+            <AtomsButton variant="outline" size="sm" @click="goNext({isNext:false})">Prev</AtomsButton>
+            <AtomsButton v-for="(page,index) in keys" :index="index"
+                :variant="currentIterator == index ? 'solid' : 'outline'" size="sm"
+                @click="goNext({isNext:true,page: index})">
+                {{ index+1 }}
+            </AtomsButton>
+            <AtomsButton variant="outline" size="sm" @click="goNext({ isNext: true })">
+                Next
+            </AtomsButton>
         </div>
         <slot />
     </div>
@@ -24,17 +33,25 @@
 
 <script setup lang="ts">
 import { ref, defineProps,onMounted,defineEmits,watch } from 'vue';
-type contentsType = {
-    [key: string]: any;
+interface Vocabulary {
+    vocab_id: number;
+    format: string;
+    title: string;
+    quizlet: { [key: string]: any };
 }
-const props = defineProps < {
-    contents: contentsType,
-} >();
-
+type langType = string; 
+type dirType = boolean; 
+const props = defineProps<{
+    contents: Vocabulary,
+    selectedLang: langType;
+    isNormalDir: dirType;
+}>();
 const flipped = ref(false);
 const front = ref('');
 const back = ref('');
-const back_mm = ref('');
+const front_optional = ref('');
+const back_optional = ref('');
+const vocabTitle = ref('');
 let currentIterator = 0;
 let keys: (string | string)[] = [];
 let totalLength = 0;
@@ -46,28 +63,42 @@ const setValues = () => {
     if (currentIterator >= totalLength) {
         return;
     }
-    front.value = keys[currentIterator];
-    back.value = props.contents[keys[currentIterator]].en;
-    back_mm.value = props.contents[keys[currentIterator]].mm;
+    
+    if (props.isNormalDir) {
+        front.value = keys[currentIterator];
+        back.value = props.contents.quizlet[keys[currentIterator]][props.selectedLang];
+        back_optional.value = props.contents.quizlet[keys[currentIterator]][props.selectedLang == 'mm' ? 'en' : 'mm'];
+    }else{
+        console.log(props.isNormalDir)
+        console.log(keys)
+        back.value = keys[currentIterator];
+        front.value = props.contents.quizlet[keys[currentIterator]][props.selectedLang];
+        front_optional.value = props.contents.quizlet[keys[currentIterator]][props.selectedLang == 'mm' ? 'en' : 'mm'];
+    }
 }
-const goNext = (isNext = true) => {
-    if (isNext && currentIterator >= totalLength){
+
+const goNext = (params:any) => {
+    let { isNext = true,page = null } = params;
+    if(page == currentIterator)return;
+    console.log("Page:",page, isNext,currentIterator,totalLength);
+    if (isNext && currentIterator >= totalLength-1){
         console.log('case to updateParentVocab')
         updateParentVocab();
     }
     else if ((!isNext && currentIterator == 0)) {
         return;
     }else{
-        currentIterator = isNext ? currentIterator + 1 : currentIterator - 1;
+        currentIterator = page ?? (isNext ? currentIterator + 1 : currentIterator -1);
         console.log(currentIterator)
         setValues();
     }
     flipped.value = false;
 }
 const initiateQuizlet = () => {
-    if (props.contents) {
-        keys = Object.keys(props.contents);
-        console.log(keys)
+    if (props.contents.quizlet) {
+        vocabTitle.value = props.contents.title;
+        keys = Object.keys(props.contents.quizlet);
+        console.log(props.contents.title)
         totalLength = keys.length;
         currentIterator =0;
         setValues();
@@ -82,7 +113,7 @@ const updateParentVocab = () => {
     console.log("Emit")
 }
 watch(
-    () => props.contents,
+    () => props.contents.quizlet,
     () => {
         initiateQuizlet();
         setValues();

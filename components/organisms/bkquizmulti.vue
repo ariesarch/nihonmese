@@ -1,5 +1,27 @@
 <template>
     <div class="w-full h-full bg-primary-0">
+        <!-- <h6 class="text-center font-bold">Choose the correct definition for each
+            {{isNormalDir ? 'Japanese' : selectedLang == 'en' ? 'English' :'Myanmar'}} expression.</h6> -->
+        <div v-if="currentQuestionIndex == 0 || currentQuestionIndex == quizData.length"
+            class="flex justify-center items-center space-x-6">
+            <!-- Displaying the current languages -->
+            <div class="flex items-center space-x-2">
+                <span class="text-xl font-semibold">{{ isNormalDir ? 'Japanese' : selectedLang == 'en' ? 'English' :
+                    'Myanmar' }}</span>
+            </div>
+
+
+            <!-- Bi-Directional Arrow -->
+            <div class="text-3xl cursor-pointer">
+                <span @click="toggleSourceLang">🔄</span> <!-- This is the bi-directional arrow -->
+            </div>
+
+            <!-- Display the language on the other side -->
+            <div class="flex items-center space-x-2">
+                <span class="text-xl font-semibold">{{ isNormalDir ? selectedLang == 'en' ? 'English' : 'Myanmar' :
+                    'Japanese' }}</span>
+            </div>
+        </div>
         <h3 class="text-center">Your score: {{ score }} / {{ quizData.length }}</h3>
         <!-- Display the current question -->
         <div v-if="!quizFinished && currentQuestionIndex < quizData.length" class="mb-4">
@@ -22,7 +44,7 @@
         <!-- Optional: Display the result -->
         <div v-else class="h-64 overflow-y-auto mx-6">
             <div v-for="(questionData, index) in quizData" :key="index" class="mb-4">
-                <h3 class="text-start">{{questionData.question }}</h3>
+                <h3 class="text-start">{{ questionData.question }}</h3>
                 <div class="flex-wrap flex flex-col sm:flex-row gap-2 justify-start border-b pb-4">
                     <div v-for="(answer, answerIndex) in questionData.answers" :key="answerIndex" class="mb-2">
                         <div class="flex gap-1 items-center">
@@ -44,32 +66,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, watch } from 'vue';
-import { useChapterStore } from '@/store/chapter'
+import { ref, defineProps, watchEffect } from 'vue';
+
 
 type Answer = {
     isAnswer: boolean;
     content: string;
 };
-type langType = string;
-type isNormalDir = boolean; 
-interface Lesson {
-    format: string;
-    quizlet: { [key: string]: any };
+const
+    interface Lesson {
+        format: string;
+quizlet: { [key: string]: any };
 }
 const props = defineProps<{
     quiz: Lesson;
-    selectedLang: langType;
-    isNormalDir: isNormalDir;
 }>();
-// const selectedLang = ref<string>('mm');
-// const isNormalDir = ref(true);
+const selectedLang = ref<string>('mm');
+const isNormalDir = ref(true);
 const quizData = ref<{ [key: string]: any }>({});
 const score = ref(0);
 const quizFinished = ref(false);
 const currentQuestionIndex = ref(0);
-const chapterStore = useChapterStore();
-
+const toggleSourceLang = () => {
+    isNormalDir.value = !isNormalDir.value
+    currentQuestionIndex.value = 0;
+    quizFinished.value = false;
+    score.value = 0;
+    generateMultipleChoiceQuiz(props.quiz)
+}
 const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
     // convert the quizlet to the selected type
     if (/vocab|kana|numbers|kanji/.test(lesson.format)) {
@@ -78,7 +102,7 @@ const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
         let quizlet: { question: string; answers: Answer[] }[] = [];
         let preparedQuiz: { [key: string]: any } = [];
         var keys: string[] = [];
-        let keys2: string[] =  [];
+        let keys2: string[] = [];
         var currentAnswer, sentence, answer, answers, def, i, j, k, n, n2;
 
         // get keys for randomization of the vocabulary
@@ -93,18 +117,23 @@ const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
         // })
         for (const [key, value] of Object.entries(lesson.quizlet)) {
             console.log(`${key}: ${JSON.stringify(value)}`);
-            
-            if (props.isNormalDir) {
+
+            if (isNormalDir.value) {
                 keys.push(key);
                 keys2.push(key);
                 console.log("Value:", value)
-                preparedQuiz[key] = value[props.selectedLang];
-            }else{
-                keys.push(value[props.selectedLang]);
-                keys2.push(value[props.selectedLang]);
-                preparedQuiz[value[props.selectedLang]] = key
+                preparedQuiz[key] = value[selectedLang.value];
+            } else {
+                keys.push(value[selectedLang.value]);
+                keys2.push(value[selectedLang.value]);
+                preparedQuiz[value[selectedLang.value]] = key
             }
         }
+        // if(!isNormalDir) {
+        //     lesson.quizlet = Object.fromEntries(
+        //         Object.entries(lesson.quizlet).map(([key, value]) => [value, key])
+        //     );
+        // }
         console.log("quizlet", preparedQuiz)
 
         // randomly sort the vocab
@@ -117,7 +146,7 @@ const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
             quizlet.push({
                 question: def[0] + (def[1] ? def[1] : ''),
                 // answers:[]
-                answers: [{isAnswer:true,content: currentAnswer}]
+                answers: [{ isAnswer: true, content: 'a+' + currentAnswer }]
             });
 
             // randomly assign answers
@@ -136,7 +165,7 @@ const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
                     }
                     // otherwise add a new answer if it's not identical
                     else {
-                        quizlet[i].answers.push(answer == currentAnswer ? {isAnswer:false,content:'!' + answer} : {isAnswer:false,content:answer});
+                        quizlet[i].answers.push(answer == currentAnswer ? { isAnswer: false, content: '!' + answer } : { isAnswer: false, content: answer });
                     }
 
                     answers.splice(n2, 1);
@@ -156,7 +185,7 @@ const generateMultipleChoiceQuiz = async (lesson: Lesson) => {
     console.log(lesson.quizlet)
     return lesson.quizlet;
 }
-const shuffle = (array: Answer[]) =>{
+const shuffle = (array: Answer[]) => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -169,7 +198,7 @@ const checkAnswer = (selectedAnswer: any, questionData: any) => {
     if (selectedAnswer === correctAnswer) {
         score.value++;
         selectedAnswer.status = '✅';
-    }else{
+    } else {
         selectedAnswer.status = '😔';
         selectedAnswer.isIncorrect = true;
     }
@@ -182,36 +211,13 @@ const nextQuestion = () => {
     }
     console.log(currentQuestionIndex.value)
 }
-const toggleSourceLang = async() => {
-    currentQuestionIndex.value = 0;
-    quizFinished.value = false;
-    score.value = 0;
-    // generateMultipleChoiceQuiz(props.quiz)
-    quizData.value = await generateMultipleChoiceQuiz(props.quiz);
-
-}
-// watchEffect(async () => {
-//     if (props.quiz) {
-//         quizData.value = await generateMultipleChoiceQuiz(props.quiz);
-//         console.log('result quizdata', quizData.value)
-//     }
-// });
-watch(
-    () => props.quiz,
-    async () => {
+watchEffect(async () => {
+    if (props.quiz) {
         quizData.value = await generateMultipleChoiceQuiz(props.quiz);
-    },
-    { immediate: true }
-);
-watch(
-    () => props.isNormalDir,
-    () => {
-        console.log("ham")
-        toggleSourceLang();
-    },
-    { immediate: true }
-);
-const speakText = (text:string) => {
+        console.log('result quizdata', quizData.value)
+    }
+});
+const speakText = (text: string) => {
     // Check if the SpeechSynthesis API is available
     console.log("Speaking..")
     if (typeof window !== 'undefined' && window.speechSynthesis) {

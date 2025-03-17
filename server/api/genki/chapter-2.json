@@ -1,0 +1,328 @@
+[
+    {
+        "chapter_id": "2",
+        "lesson_id": "1",
+        "vocabs": {
+            "vocab_audio": "/audio/genki/chapter-2/vocabs/K01_05.mp3",
+            "vocab_data":[
+                {
+                    "vocab_id": 1,
+                    "format": "vocab",
+                    "title": "School",
+                    "quizlet": {
+                        "だいがく": {
+                            "en": "college; university",
+                            "mm": "တက္ကသိုလ် ကျောင်းသား/သူ",
+                            "type": "နာမ်"
+                        },
+                        "こうこう": {
+                            "en": "high school",
+                            "mm": "အထက်တန်းကျောင်း",
+                            "type": "နာမ်"
+                        },
+                        "がくせい": {
+                            "en": "student",
+                            "mm": "ကျောင်းသား/သူ",
+                            "type": "နာမ်"
+                        },
+                        "だいがくせい": {
+                            "en": "college student",
+                            "mm": "ကောလိပ်ကျောင်းသား/သူ",
+                            "type": "နာမ်"
+                        },
+                        "りゅうがくせい": {
+                            "en": "international student",
+                            "mm": "နိုင်ငံတကာ တက္ကသိုလ် ကျောင်းသား/သူ",
+                            "type": "နာမ်"
+                        },
+                        "せんせい": {
+                            "en": "teacher; professor",
+                            "mm": "ဆရာ/မ",
+                            "type": "နာမ်"
+                        },
+                        "～ねんせい": {
+                            "en": "...year student",
+                            "mm": "-နှစ် ကျောင်းသား/သူ",
+                            "type": "နာမ်"
+                        },
+                        "いちねんせい": {
+                            "en": "first-year student",
+                            "mm": "ပထမနှစ် ကျောင်းသား/သူ",
+                            "type": "နာမ်"
+                        },
+                        "せんこう": {
+                            "en": "major",
+                            "mm": "မေဂျာ/အထူးပြုဘာသာ",
+                            "type": "နာမ်"
+                        }
+                    }
+                },
+                {
+                    "vocab_id": 2,
+                    "format": "vocab",
+                    "title": "People and Time",
+                    "quizlet": {
+                        "わたし": {
+                            "en": "I",
+                            "mm": "ကျနော်/ကျမ",
+                            "type": "နာမ်စား"
+                        },
+                        "ともだち": {
+                            "en": "friend",
+                            "mm": "သူငယ်ချင်း",
+                            "type": "နာမ်"
+                        },
+                        "～さん": {
+                            "en": "Mr./Ms. ...",
+                            "mm": "Mr./Ms. ...",
+                            "type": "နာမ်"
+                        },
+                        "～じん": {
+                            "en": "...people",
+                            "mm": "လူမျိုး",
+                            "type": "နာမ်"
+                        },
+                        "にほんじん": {
+                            "en": "Japanese people",
+                            "mm": "ဂျပန်လူမျိုး",
+                            "type": "နာမ်"
+                        },
+                        "いま": {
+                            "en": "now",
+                            "mm": "ယခု",
+                            "type": "အချိန်ပြကြိယာဝိသေသန"
+                        },
+                        "ごぜん": {
+                            "en": "A.M.",
+                            "mm": "နံနက်",
+                            "type": "အချိန်ပြကြိယာဝိသေသန"
+                        },
+                        "ごご": {
+                            "en": "P.M.",
+                            "mm": "ညနေ",
+                            "type": "အချိန်ပြကြိယာဝိသေသန"
+                        },
+                        "～じ": {
+                            "en": "o'clock",
+                            "mm": "-နာရီ",
+                            "type": "အချိန်ပြကြိယာဝိသေသန"
+                        },
+                        "いちじ": {
+                            "en": "one o'clock",
+                            "mm": "၁နာရီ",
+                            "type": "-"
+                        },
+                        "はん": {
+                            "en": "half",
+                            "mm": "တဝက်",
+                            "type": "ပမာဏပြကြိယာဝိသေသန"
+                        },
+                        "にじはん": {
+                            "en": "half past two",
+                            "mm": "၂နာရီခွဲ",
+                            "type": "-"
+                        }
+                    }
+                },
+                {
+                    "vocab_id": 3,
+                    "format": "vocab",
+                    "title": "Others and Expressions",
+                    "quizlet": {
+                        "にほん": {
+                            "en": "Japan",
+                            "mm": "ဂျပန်",
+                            "type": "နာမ်"
+                        },
+                        "アメリカ": {
+                            "en": "U.S.A.",
+                            "mm": "အမေရိကန်",
+                            "type": "နာမ်"
+                        },
+                        "～ご": {
+                            "en": "...language",
+                            "mm": "ဘာသာစကား",
+                            "type": "နာမ်"
+                        },
+                        "にほんご": {
+                            "en": "Japanese language",
+                            "mm": "ဂျပန်ဘာသာစကား",
+                            "type": "နာမ်"
+                        },
+                        "～さい": {
+                            "en": "...years old",
+                            "mm": "--နှစ်",
+                            "type": "နာမ်"
+                        },
+                        "でんわ": {
+                            "en": "telephone",
+                            "mm": "တယ်လီဖုန်း",
+                            "type": "နာမ်"
+                        },
+                        "～ばん": {
+                            "en": "number...",
+                            "mm": "နံပါတ်",
+                            "type": "နာမ်"
+                        },
+                        "ばんごう": {
+                            "en": "number",
+                            "mm": "နံပါတ်",
+                            "type": "နာမ်"
+                        },
+                        "なまえ": {
+                            "en": "name",
+                            "mm": "နာမည်",
+                            "type": "နာမ်"
+                        },
+                        "なん／なに": {
+                            "en": "what",
+                            "mm": "ဘာ/အဘယ်",
+                            "type": "နာမ်"
+                        },
+                        "あのう": {
+                            "en": "um...",
+                            "mm": "အမ်..",
+                            "type": "နာမ်"
+                        },
+                        "はい": {
+                            "en": "yes",
+                            "mm": "ဟုတ်တယ်",
+                            "type": "နာမ်"
+                        },
+                        "そうです": {
+                            "en": "That's right.",
+                            "mm": "မှန်တယ်",
+                            "type": "နာမ်"
+                        },
+                        "そうですか": {
+                            "en": "I see.; Is that so?",
+                            "mm": "အဲဒီလိုလား၊ သိပြီ",
+                            "type": "နာမ်"
+                        }
+                    }
+                },
+                {
+                    "vocab_id": 4,
+                    "format": "vocab",
+                    "title": "Countries",
+                    "quizlet": {
+                        "イギリス": {
+                            "en": "Japan",
+                            "mm": "ဂျပန်",
+                            "type": "နာမ်"
+                        },
+                        "オーストラリア": {
+                            "en": "U.S.A.",
+                            "mm": "အမေရိကန်",
+                            "type": "နာမ်"
+                        },
+                        "かんこく": {
+                            "en": "...language",
+                            "mm": "ဘာသာစကား",
+                            "type": "နာမ်"
+                        },
+                        "カナダ": {
+                            "en": "Japanese language",
+                            "mm": "ဂျပန်ဘာသာစကား",
+                            "type": "နာမ်"
+                        },
+                        "ちゅうごく": {
+                            "en": "...years old",
+                            "mm": "--နှစ်",
+                            "type": "နာမ်"
+                        },
+                        "インド": {
+                            "en": "telephone",
+                            "mm": "တယ်လီဖုန်း",
+                            "type": "နာမ်"
+                        },
+                        "エジプト": {
+                            "en": "number...",
+                            "mm": "နံပါတ်",
+                            "type": "နာမ်"
+                        },
+                        "フィリピン": {
+                            "en": "number",
+                            "mm": "နံပါတ်",
+                            "type": "နာမ်"
+                        },
+                        "にほん": {
+                            "en": "name",
+                            "mm": "နာမည်",
+                            "type": "နာမ်"
+                        },
+                        "アメリカ": {
+                            "en": "what",
+                            "mm": "ဘာ/အဘယ်",
+                            "type": "နာမ်"
+                        },
+                        "くに": {
+                            "en": "um...",
+                            "mm": "အမ်..",
+                            "type": "နာမ်"
+                        }
+                    }
+                }
+            ]
+        },
+        "dialogues": {
+            "dialogue_data": [
+                {
+                    "dialogue_id": 1,
+                    "format": "dialogue",
+                    "title": "Greeting",
+                    "dialogue_audio": "/audio/genki/chapter-2/dialogues/K01_02.mp3",
+                    "audio_start": 0,
+                    "audio_end": 0,
+                    "speeches": [
+                        {
+                            "speaker": "たけし",
+                            "speech": "こんにちは。きむら　たけし　です。"
+                        },
+                        {
+                            "speaker": "メアリー",
+                            "speech": "メアリー　ハート　です。　あのう、　リゅがくせい　ですか。"
+                        },
+                        {
+                            "speaker": "たけし",
+                            "speech": "いいえ、にほんじん　です。"
+                        },
+                        {
+                            "speaker": "メアリー",
+                            "speech": "そですか。なんねんせい　ですか。"
+                        },
+                        {
+                            "speaker": "たけし",
+                            "speech": "よねんせい　です。"
+                        }
+                    ]
+                },
+                {
+                    "dialogue_id": 2,
+                    "format": "dialogue",
+                    "title": "Marry introduces herself to everyone.",
+                    "audio_start": 0,
+                    "audio_end": 0,
+                    "speeches": [
+                        {
+                            "speaker": "メアリー",
+                            "speech": "はじめまして。メアリーハート　です。"
+                        },
+                        {
+                            "speaker": "メアリー",
+                            "speech": "アリぞな　だいがく　の　がくせいです。にねんせい　です。"
+                        },
+                        {
+                            "speaker": "メアリー",
+                            "speech": "せんこは　にほんご　です。じゅきゅさい　です。"
+                        },
+                        {
+                            "speaker": "メアリー",
+                            "speech": "よろしく　おねがい　します。"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]
