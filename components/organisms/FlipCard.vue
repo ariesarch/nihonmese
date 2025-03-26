@@ -33,18 +33,12 @@
 
 <script setup lang="ts">
 import { ref, defineProps,onMounted,defineEmits,watch } from 'vue';
-interface Vocabulary {
-    vocab_id: number;
-    format: string;
-    title: string;
-    quizlet: { [key: string]: any };
-}
-type langType = string; 
-type dirType = boolean; 
+import { Vocabulary,TlangType,TdirType } from '@/interfaces/IChapter';
+
 const props = defineProps<{
     contents: Vocabulary,
-    selectedLang: langType;
-    isNormalDir: dirType;
+    selectedLang: TlangType;
+    isNormalDir: TdirType;
 }>();
 const flipped = ref(false);
 const front = ref('');
@@ -83,9 +77,10 @@ const goNext = (params:any) => {
     console.log("Page:",page, isNext,currentIterator,totalLength);
     if (isNext && currentIterator >= totalLength-1){
         console.log('case to updateParentVocab')
-        updateParentVocab();
+        updateParentVocab(isNext);
     }
     else if ((!isNext && currentIterator == 0)) {
+        updateParentVocab(false);
         return;
     }else{
         currentIterator = page ?? (isNext ? currentIterator + 1 : currentIterator -1);
@@ -106,10 +101,10 @@ const initiateQuizlet = () => {
 }
 
 const emit = defineEmits<{
-    (e: 'update-vocab-id'): void;
+    (e: 'update-vocab-id', isNext: boolean): void;
 }>();
-const updateParentVocab = () => {
-    emit('update-vocab-id');
+const updateParentVocab = (isNext:boolean) => {
+    emit('update-vocab-id', isNext);
     console.log("Emit")
 }
 watch(

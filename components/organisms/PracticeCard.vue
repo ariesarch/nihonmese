@@ -2,8 +2,7 @@
     <div class="h-full w-full cursor-pointer flex flex-col justify-center gap-4">
         <h4 class="text-center text-primary-500">{{ vocabTitle }}</h4>
         <div class="flip-card w-full p-3 relative h-40">
-            <div
-                class="flip-card-front w-full h-full absolute flex flex-col items-center justify-center">
+            <div class="flip-card-front w-full h-full absolute flex flex-col items-center justify-center">
                 <!-- <h4 class="text-2xl font-bold text-primary-500">{{ dialogueRef }}</h4> -->
                 <h6 class="my-auto text-2xl font-bold text-green-700">{{ typedSpeaker }}: {{ typedSpeech }}</h6>
             </div>
@@ -15,7 +14,8 @@
                 @click="goNext({ isNext: true, page: index })">
                 {{ index + 1 }}
             </AtomsButton>
-            <AtomsButton variant="outline" size="sm" @click="goNext({ isNext: true })" v-show="currentIterator < totalLength-1">
+            <AtomsButton variant="outline" size="sm" @click="goNext({ isNext: true })"
+                v-show="currentIterator < totalQuizletsLength - 1">
                 Next
             </AtomsButton>
         </div>
@@ -26,19 +26,19 @@
 <script setup lang="ts">
 import { ref, defineProps, onMounted, defineEmits, watch, Ref } from 'vue';
 import { Howl, Howler } from 'howler';
-import { IDialogue, ISpeech } from '@/interfaces/IChapter';
+import { IPracticeData, IQuizlet, ISpeech } from '@/interfaces/IChapter';
 
 const props = defineProps<{
-    contents: IDialogue
+    practice_data: IPracticeData
 }>();
-const dialogueRef = ref<IDialogue>();
+const dialogueRef = ref<IPracticeData>();
 const startRef = ref(1);
 const endRef = ref(200);
 const isTyping = ref(true);
 const vocabTitle = ref('');
 let currentIterator = 0;
 let keys: (string | string)[] = [];
-let totalLength = 0;
+let totalQuizletsLength = 0;
 let sound: Howl | null = null;
 let isPlaying = ref(false);
 const speechRef = ref<ISpeech>();
@@ -61,7 +61,7 @@ const typeTextEffect = (
         if (index < totalCharacters) {
             if (textType == "speaker") {
                 typedSpeaker.value += text[index];
-            }else{
+            } else {
                 typedSpeech.value += text[index];
             }
             index++;
@@ -84,8 +84,8 @@ const processAudio = () => {
         const totalDuration = 1000 * (endRef.value - startRef.value);
         console.log("Total Duration:", totalDuration)
         if (speechRef.value) {
-            typeTextEffect(speechRef.value.speaker,"speaker",1000);
-            typeTextEffect(speechRef.value.speech,"speech", totalDuration);
+            typeTextEffect(speechRef.value.speaker, "speaker", 1000);
+            typeTextEffect(speechRef.value.speech, "speech", totalDuration);
         }
     } else {
         sound.pause();
@@ -105,8 +105,8 @@ const processAudio = () => {
 const goNext = (params: any) => {
     let { isNext = true, page = null } = params;
     if (page == currentIterator) return;
-    console.log("Page:", page, isNext, currentIterator, totalLength);
-    if (isNext && currentIterator >= totalLength - 1) {
+    console.log("Page:", page, isNext, currentIterator, totalQuizletsLength);
+    if (isNext && currentIterator >= totalQuizletsLength - 1) {
         console.log('case to updateParentVocab')
         updateParentVocab();
     }
@@ -118,27 +118,27 @@ const goNext = (params: any) => {
         typedSpeech.value = '';
         currentIterator = page ?? (isNext ? currentIterator + 1 : currentIterator - 1);
         console.log(currentIterator)
-        setSpeech();
-        
+        // setSpeech();
+
     }
 }
 const setSpeech = () => {
-    speechRef.value = props.contents.speeches[currentIterator]
+    speechRef.value = props.practice_data.speeches[currentIterator]
     startRef.value = speechRef.value.audio_start
     endRef.value = speechRef.value.audio_end
     processAudio();
 }
 const initiateQuizlet = () => {
-    if (props.contents) {
-        vocabTitle.value = props.contents.title;
-        // keys = Object.keys(props.contents.quizlet);
-        console.log("Title",props.contents.title)
-        totalLength = props.contents.speeches.length;
+    if (props.practice_data) {
+        vocabTitle.value = props.practice_data.title;
+        // keys = Object.keys(props.practice_data.quizlet);
+        console.log("Title", props.practice_data.title)
+        totalQuizletsLength = props.practice_data.quizlets.length;
         currentIterator = 0;
-        sound = new Howl({ src: props.contents.dialogue_audio });
-        dialogueRef.value = props.contents
-        // speechRef.value = props.contents.speeches[0]
-        setSpeech();
+        sound = new Howl({ src: props.practice_data.practice_audio });
+        dialogueRef.value = props.practice_data
+        // speechRef.value = props.practice_data.speeches[0]
+        // setSpeech();
     }
 }
 
@@ -150,7 +150,7 @@ const updateParentVocab = () => {
     console.log("Emit")
 }
 watch(
-    () => props.contents,
+    () => props.practice_data,
     () => {
         initiateQuizlet();
     },

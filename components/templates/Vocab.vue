@@ -7,42 +7,46 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, defineProps, onMounted } from 'vue';
+import { ref, defineProps, onMounted,watch } from 'vue';
 import { useChapterStore } from '@/store/chapter'
+import { Chapter,Vocabulary, TlangType, TdirType, TvocabId, TisNext, TvocabType, Vocab } from '@/interfaces/IChapter';
 const chapterStore = useChapterStore();
-interface Vocabulary {
-    vocab_id: number;
-    format: string;
-    title: string;
-    quizlet: { [key: string]: any };
-}
-interface vocabType {
-    vocab_audio: string;
-    vocab_data: Vocabulary[]
-}
-type langType = string; 
-type dirType = boolean; 
-// const vocabulary: vocabType = chapterStore.chapter.vocabs
-const vocabulary = ref(chapterStore.chapter);
 
+const vocabulary = ref<Vocab>(chapterStore.chapter.vocabs);
+// const vType = ref<TvocabType>(chapterStore.vocabType);
 const props = defineProps<{
-    selectedLang: langType;
-    isNormalDir: dirType;
+    selectedLang: TlangType;
+    isNormalDir: TdirType;
+    vocabType: TvocabType;
 }>();
 const isFinishedFlash = ref(false);
-const vocabId = ref<number>(1);
+const vocabId = ref<TvocabId>(1);
 const currentVocabData = ref<Vocabulary>();
-onMounted(() => {
-    currentVocabData.value = vocabulary.value.vocabs.vocab_data.find((vocab:Vocabulary) => vocab?.vocab_id == vocabId.value);
-})
-const vocabIdByFlash = () => {
-    if(vocabId.value < vocabulary.value.vocabs.vocab_data.length) {
-        vocabId.value += 1;
-        currentVocabData.value = vocabulary.value.vocabs.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
-        console.log("Updated:", currentVocabData.value)
-    }else{
+watch(
+    () => chapterStore.chapter,
+    (newChapter) => {
+        const vocabType = props.vocabType as keyof Chapter;
+        const vocab = newChapter[vocabType] as Vocab;
+        if (newChapter && vocab) {
+            currentVocabData.value = vocab.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
+        }
+    },
+    { immediate: true }
+);
+// onMounted(() => {
+//     vocabulary.value = chapterStore.chapter[props.vocabType]
+//     console.log("TTT", props.vocabType)
+//     currentVocabData.value = vocabulary.value.vocab_data.find((vocab:Vocabulary) => vocab?.vocab_id == vocabId.value);
+// })
+const vocabIdByFlash = (isNext: TisNext) => {
+    if (vocabId.value < vocabulary.value.vocab_data.length) {
+        vocabId.value = isNext? vocabId.value + 1 : vocabId.value -1;
+        currentVocabData.value = vocabulary.value.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
+        console.log("Updated:", vocabId.value)
+    } else {
+        console.log("Updated decrease:")
         vocabId.value = 1;
-        currentVocabData.value = vocabulary.value.vocabs.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
+        currentVocabData.value = vocabulary.value.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
         isFinishedFlash.value = true
     }
 }

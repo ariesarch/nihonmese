@@ -1,42 +1,39 @@
 <template>
     <div class="">
-        {{ chapterStore.chapter.vocabs }}
-        <OrganismsDialogueCard v-if="!isFinishedDialogue && currentDialogueData" :contents="currentDialogueData"
+        {{ currentPracticeData }}
+        <OrganismsPracticeCard v-if="!isFinishedPractice && currentPracticeData" :practice_data="currentPracticeData"
             @update-vocab-id="vocabIdByFlash" />
     </div>
 </template>
 <script setup lang="ts">
 import { ref, defineProps, onMounted } from 'vue';
 import { useChapterStore } from '@/store/chapter'
+import { IPracticeData, TpracticeId } from '@/interfaces/IChapter';
+const props = defineProps<{
+    practiceId: TpracticeId
+}>();
 const chapterStore = useChapterStore();
-interface Vocabulary {
-    vocab_id: number;
-    format: string;
-    title: string;
-    quizlet: { [key: string]: any };
-}
-interface vocabType {
-    vocab_audio: string;
-    vocab_data: Vocabulary[]
-}
+const practice = ref(chapterStore.chapter.practices);
 
-const vocabulary: vocabType = chapterStore.chapter.vocabs
-
-const isFinishedDialogue = ref(false);
-const vocabId = ref<number>(1);
-const currentDialogueData = ref<Vocabulary>();
+const isFinishedPractice = ref(false);
+const practiceId = ref<number>(props.practiceId);
+const currentPracticeData = ref<IPracticeData>();
+// onMounted(() => {
+//     // currentPracticeData.value = vocabulary.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == practiceId.value);
+// })
 onMounted(() => {
-    // currentDialogueData.value = vocabulary.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
+    currentPracticeData.value = practice.value.practice_data.find((vocab: IPracticeData) =>
+        vocab?.practice_id == practiceId.value);
 })
 const vocabIdByFlash = () => {
-    if (vocabId.value < vocabulary.vocab_data.length) {
-        vocabId.value += 1;
-        currentDialogueData.value = vocabulary.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
-        console.log("Updated:", currentDialogueData.value)
+    if (practiceId.value < practice.value.practice_data.length) {
+        practiceId.value += 1;
+        currentPracticeData.value = practice.value.practice_data.find((vocab: IPracticeData) => vocab?.practice_id == practiceId.value);
+        console.log("Updated:", currentPracticeData.value)
     } else {
-        vocabId.value = 1;
-        currentDialogueData.value = vocabulary.vocab_data.find((vocab: Vocabulary) => vocab?.vocab_id == vocabId.value);
-        isFinishedDialogue.value = true
+        practiceId.value = 1;
+        currentPracticeData.value = practice.value.practice_data.find((vocab: IPracticeData) => vocab?.practice_id == practiceId.value);
+        isFinishedPractice.value = true
     }
 }
 </script>

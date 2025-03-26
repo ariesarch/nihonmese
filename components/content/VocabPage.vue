@@ -20,39 +20,26 @@
                         'Japanese' }}</span>
                 </div>
             </div>
-            <form class="max-w-sm mx-auto" v-if="!isStartJourney">
-                <select v-model="selectedLang" id="countries"
-                    class="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="en">English</option>
-                    <option value="mm">Myanmar</option>
-                </select>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
-                    option</label>
-            </form>
             <AtomsButton variant="outline" size="lg" class="w-1/3 mx-auto rounded-full"
                 @click="isStartJourney = !isStartJourney" v-if="!isStartJourney">
                 Start Journey
             </AtomsButton>
-            <TemplatesVocab v-else :selectedLang="selectedLang" :isNormalDir="isNormalDir"/>
+            <TemplatesVocab v-else :selectedLang="selectedLang" :isNormalDir="isNormalDir" :vocabType="vocabType"/>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { ref, defineProps, watchEffect, watch } from 'vue';
-import { Howl, Howler } from 'howler';
+import { ref, defineProps, watchEffect, watch, onMounted } from 'vue';
+import { Howl } from 'howler';
 import { useChapterStore } from '@/store/chapter'
-
+import { Chapter, Vocab, TlangType, TdirType, TvocabType } from '@/interfaces/IChapter';
 const chapterStore = useChapterStore();
-
-interface Vocabulary {
-    vocab_id: number;
-    format: string;
-    quizlet: { [key: string]: any };
-}
+const props = defineProps<{
+    vocabType: TvocabType
+}>();
 const isStartJourney = ref(false);
-const vocabularies = ref<Vocabulary[]>([]); 
-const selectedLang = ref<string>('mm');
-const isNormalDir = ref(true);
+const selectedLang = ref<TlangType>('mm');
+const isNormalDir = ref <TdirType>(true);
 const toggleSourceLang = () => {
     isNormalDir.value = !isNormalDir.value
 }
@@ -69,12 +56,16 @@ const processAudio = () => {
         console.log("pasus")
     }
 }
+// onMounted(() => {
+//     chapterStore.setVocabType(props.vocabType);
+// });
 watch(
     () => chapterStore.chapter,
     (newChapter) => {
-        if (newChapter && newChapter.vocabs) {
-            console.log("Chapter data updated in Component B:", newChapter);
-            sound = new Howl({ src: newChapter.vocabs.vocab_audio });
+        const vocabType = props.vocabType as keyof Chapter;
+        const vocab = newChapter[vocabType] as Vocab;
+        if (newChapter && vocab) {
+            sound = new Howl({ src: vocab?.vocab_audio });
         }
     },
     { immediate: true }

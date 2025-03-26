@@ -127,7 +127,7 @@
                 {
                     "vocab_id": 3,
                     "format": "vocab",
-                    "title": "Others and Expressions",
+                    "title": "Others",
                     "quizlet": {
                         "にほん": {
                             "en": "Japan",
@@ -178,7 +178,14 @@
                             "en": "what",
                             "mm": "ဘာ/အဘယ်",
                             "type": "နာမ်"
-                        },
+                        }
+                    }
+                },
+                {
+                    "vocab_id": 4,
+                    "format": "vocab",
+                    "title": "Expressions",
+                    "quizlet": {
                         "あのう": {
                             "en": "um...",
                             "mm": "အမ်..",
@@ -200,71 +207,198 @@
                             "type": "နာမ်"
                         }
                     }
-                },
-                {
-                    "vocab_id": 4,
-                    "format": "vocab",
-                    "title": "Countries",
-                    "quizlet": {
-                        "イギリス": {
-                            "en": "Japan",
-                            "mm": "ဂျပန်",
-                            "type": "နာမ်"
-                        },
-                        "オーストラリア": {
-                            "en": "U.S.A.",
-                            "mm": "အမေရိကန်",
-                            "type": "နာမ်"
-                        },
-                        "かんこく": {
-                            "en": "...language",
-                            "mm": "ဘာသာစကား",
-                            "type": "နာမ်"
-                        },
-                        "カナダ": {
-                            "en": "Japanese language",
-                            "mm": "ဂျပန်ဘာသာစကား",
-                            "type": "နာမ်"
-                        },
-                        "ちゅうごく": {
-                            "en": "...years old",
-                            "mm": "--နှစ်",
-                            "type": "နာမ်"
-                        },
-                        "インド": {
-                            "en": "telephone",
-                            "mm": "တယ်လီဖုန်း",
-                            "type": "နာမ်"
-                        },
-                        "エジプト": {
-                            "en": "number...",
-                            "mm": "နံပါတ်",
-                            "type": "နာမ်"
-                        },
-                        "フィリピン": {
-                            "en": "number",
-                            "mm": "နံပါတ်",
-                            "type": "နာမ်"
-                        },
-                        "にほん": {
-                            "en": "name",
-                            "mm": "နာမည်",
-                            "type": "နာမ်"
-                        },
-                        "アメリカ": {
-                            "en": "what",
-                            "mm": "ဘာ/အဘယ်",
-                            "type": "နာမ်"
-                        },
-                        "くに": {
-                            "en": "um...",
-                            "mm": "အမ်..",
-                            "type": "နာမ်"
-                        }
-                    }
                 }
             ]
         },
+        "additional_vocabs":
+            {
+            "vocab_audio": "/audio/genki/chapter-2/additional_vocabs/K01_07.mp3",
+            "vocab_data": [
+                    {
+                        "vocab_id": 1,
+                        "format": "vocab",
+                        "title": "Countries",
+                        "quizlet": {
+                            "イギリス": {
+                                "en": "England",
+                                "mm": "အင်္ဂလိပ်",
+                                "type": "နာမ်"
+                            },
+                            "オーストラリア": {
+                                "en": "Australia",
+                                "mm": "အိုစတေးလျ",
+                                "type": "နာမ်"
+                            },
+                            "かんこく": {
+                                "en": "Korea",
+                                "mm": "ကိုရီးယား",
+                                "type": "နာမ်"
+                            },
+                            "カナダ": {
+                                "en": "Canada",
+                                "mm": "ကနေဒါ",
+                                "type": "နာမ်"
+                            },
+                            "ちゅうごく": {
+                                "en": "China",
+                                "mm": "တရုတ်",
+                                "type": "နာမ်"
+                            },
+                            "インド": {
+                                "en": "India",
+                                "mm": "အိန္ဒိယ",
+                                "type": "နာမ်"
+                            },
+                            "エジプト": {
+                                "en": "Egypt",
+                                "mm": "အီဂျစ်",
+                                "type": "နာမ်"
+                            },
+                            "フィリピン": {
+                                "en": "Philippines",
+                                "mm": "ဖီလစ်ပိုင်",
+                                "type": "နာမ်"
+                            }
+                        }
+                    },
+                    {
+                        "vocab_id": 2,
+                        "format": "vocab",
+                        "title": "Majors",
+                        "quizlet": {
+                            "かがく": {
+                                "en": "science",
+                                "mm": "သိပ္ပံ",
+                                "type": "နာမ်"
+                            },
+                            "アジアけんきゅう": {
+                                "en": "Asian studies",
+                                "mm": "အာရှလေ့လာမှု",
+                                "type": "နာမ်"
+                            },
+                            "けいざい": {
+                                "en": "economics",
+                                "mm": "စီးပွားရေး",
+                                "type": "နာမ်"
+                            },
+                            "こくさいかんけい": {
+                                "en": "international relations",
+                                "mm": "အပြည်ပြည်ဆိုင်ရာ ဆက်ဆံရေး",
+                                "type": "နာမ်"
+                            },
+                            "コンピューター": {
+                                "en": "computer",
+                                "mm": "ကွန်ပျူတာ",
+                                "type": "နာမ်"
+                            },
+                            "じんるいがく": {
+                                "en": "anthropology",
+                                "mm": "မဟာတရားလေ့လာရေး",
+                                "type": "နာမ်"
+                            },
+                            "せいじ": {
+                                "en": "politics",
+                                "mm": "နိုင်ငံရေး",
+                                "type": "နာမ်"
+                            },
+                            "ビジネス": {
+                                "en": "business",
+                                "mm": "စီးပွားရေး",
+                                "type": "နာမ်"
+                            },
+                            "ぶんがく": {
+                                "en": "literature",
+                                "mm": "စာပေ",
+                                "type": "နာမ်"
+                            },
+                            "れきし": {
+                                "en": "history",
+                                "mm": "သမိုင်း",
+                                "type": "နာမ်"
+                            }
+                        }
+                    },
+                    {
+                        "vocab_id": 3,
+                        "format": "vocab",
+                        "title": "Occupations",
+                        "quizlet": {
+                            "いしゃ": {
+                                "en": "doctor",
+                                "mm": "ဆရာဝန်",
+                                "type": "နာမ်"
+                            },
+                            "かいしゃいん": {
+                                "en": "office worker",
+                                "mm": "ရုံးလုပ္ငန်းသား",
+                                "type": "နာမ်"
+                            },
+                            "かんごし": {
+                                "en": "nurse",
+                                "mm": "နာရီပြုစေသူ",
+                                "type": "နာမ်"
+                            },
+                            "こうこうせい": {
+                                "en": "high school student",
+                                "mm": "တက္ကသိုလ်ကျောင်းသား",
+                                "type": "နာမ်"
+                            },
+                            "しゅふ": {
+                                "en": "housewife",
+                                "mm": "အိမ်စောင့်မိန်းကလေး",
+                                "type": "နာမ်"
+                            },
+                            "だいがくいんせい": {
+                                "en": "graduate student",
+                                "mm": "အလုပ်သင်ကျောင်းသား",
+                                "type": "နာမ်"
+                            },
+                            "べんごし": {
+                                "en": "lawyer",
+                                "mm": "တရားရုံးဆိုင်ရာ",
+                                "type": "နာမ်"
+                            }
+                        }
+                    },
+                    {
+                        "vocab_id": 3,
+                        "format": "vocab",
+                        "title": "Family",
+                        "quizlet": {
+                            "おかあさん": {
+                                "en": "mother",
+                                "mm": "မိခင်",
+                                "type": "နာမ်"
+                            },
+                            "おとうさん": {
+                                "en": "father",
+                                "mm": "အဖေ",
+                                "type": "နာမ်"
+                            },
+                            "おねえさん": {
+                                "en": "older sister",
+                                "mm": "အစ်မ",
+                                "type": "နာမ်"
+                            },
+                            "おにいさん": {
+                                "en": "older brother",
+                                "mm": "အစ်ကို",
+                                "type": "နာမ်"
+                            },
+                            "いもうと": {
+                                "en": "younger sister",
+                                "mm": "ညီမ",
+                                "type": "နာမ်"
+                            },
+                            "おとうと": {
+                                "en": "younger brother",
+                                "mm": "ညီ",
+                                "type": "နာမ်"
+                            }
+                        }
+                    }
+                ]
+            },
         "dialogues": {
             "dialogue_data": [
                 {
@@ -272,26 +406,34 @@
                     "format": "dialogue",
                     "title": "Greeting",
                     "dialogue_audio": "/audio/genki/chapter-2/dialogues/K01_02.mp3",
-                    "audio_start": 0,
-                    "audio_end": 0,
                     "speeches": [
                         {
+                            "audio_start": 3,
+                            "audio_end": 9,
                             "speaker": "たけし",
                             "speech": "こんにちは。きむら　たけし　です。"
                         },
                         {
+                            "audio_start": 9,
+                            "audio_end": 20,
                             "speaker": "メアリー",
                             "speech": "メアリー　ハート　です。　あのう、　リゅがくせい　ですか。"
                         },
                         {
+                            "audio_start": 20,
+                            "audio_end": 27,
                             "speaker": "たけし",
                             "speech": "いいえ、にほんじん　です。"
                         },
                         {
+                            "audio_start": 27,
+                            "audio_end": 35,
                             "speaker": "メアリー",
                             "speech": "そですか。なんねんせい　ですか。"
                         },
                         {
+                            "audio_start": 35,
+                            "audio_end": 39,
                             "speaker": "たけし",
                             "speech": "よねんせい　です。"
                         }
@@ -319,6 +461,38 @@
                         {
                             "speaker": "メアリー",
                             "speech": "よろしく　おねがい　します。"
+                        }
+                    ]
+                }
+            ]
+        },
+        "practices": {
+            "practice_data": [
+                {
+                    "practice_id": 1,
+                    "format": "practice",
+                    "title": "Year",
+                    "practice_audio": "Ham",
+                    "quizlets": [
+                        {
+                            "target": "Mary",
+                            "audio_start": 3,
+                            "audio_end": 9,
+                            "contents": [
+                                {
+                                    "speaker": "-",
+                                    "speech": "メアリー さん は にねんせい です。"
+                                }
+                            ]
+                        },
+                        {
+                            "target": "Mary",
+                            "contents": [
+                                {
+                                    "speaker": "-",
+                                    "speech": "メアリー さん は にねんせい です。"
+                                }
+                            ]
                         }
                     ]
                 }

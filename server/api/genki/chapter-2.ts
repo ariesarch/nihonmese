@@ -9,7 +9,7 @@ export default defineEventHandler((event) => {
         const lesson = lessons.find((chapter) => chapter.chapter_id === chapter_id && chapter.lesson_id === lesson_id);
         if (lesson) {
             // const vocab = lesson.vocabs.find((vocab)=> vocab.vocab_id == vocab_id);
-            console.log('Result:', JSON.stringify(lesson.vocabs))
+            // console.log('Result:', JSON.stringify(lesson.vocabs))
             return lesson;
         } else {
             return { message: 'Lesson not found' };
